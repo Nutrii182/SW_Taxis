@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using sistema_taxis.Models;
@@ -15,7 +16,21 @@ namespace sistema_taxis
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var hostserver = CreateHostBuilder(args).Build();
+            using(var amb = hostserver.Services.CreateScope())
+            {
+                var services = amb.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<SistemaTaxisContext>();
+                    context.Database.Migrate();
+                }catch(Exception e)
+                {
+                    var logging = services.GetRequiredService<ILogger<Program>>();
+                    logging.LogError(e, "Error en la migracion");
+                }
+            }
+            hostserver.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

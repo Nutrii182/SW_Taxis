@@ -1,10 +1,11 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace sistema_taxis.Models
 {
-    public partial class SistemaTaxisContext : DbContext
+    public partial class SistemaTaxisContext : IdentityDbContext<Usuario>
     {
         private readonly string connectionString;
         public SistemaTaxisContext(string _connectionString)
@@ -34,6 +35,8 @@ namespace sistema_taxis.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Chofer>(entity =>
             {
                 entity.Property(e => e.ChoferId).ValueGeneratedNever();
