@@ -3,13 +3,12 @@ using System.Collections.Generic;
 
 namespace sistema_taxis.Models
 {
-    public partial class Pago
+    public partial class ChoferUnidad
     {
-        public Guid PagoId { get; set; }
-        public decimal Cantidad { get; set; }
-        public DateTime FechaPago { get; set; }
         public Guid ChoferId { get; set; }
+        public Guid UnidadId { get; set; }
 
         public virtual Chofer Chofer { get; set; }
+        public virtual Unidad Unidad { get; set; }
     }
 }

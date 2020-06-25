@@ -6,8 +6,8 @@ namespace sistema_taxis.Models
 {
     public partial class SistemaTaxisContext : DbContext
     {
-        private readonly string _connectionString;
-        public SistemaTaxisContext(string connectionString)
+        private readonly string connectionString;
+        public SistemaTaxisContext(string _connectionString)
         {
             connectionString = _connectionString;
         }
@@ -18,6 +18,7 @@ namespace sistema_taxis.Models
         }
 
         public virtual DbSet<Chofer> Chofer { get; set; }
+        public virtual DbSet<ChoferUnidad> ChoferUnidad { get; set; }
         public virtual DbSet<Pago> Pago { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<TipoSangre> TipoSangre { get; set; }
@@ -27,9 +28,7 @@ namespace sistema_taxis.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=SistemaTaxis;Trusted_Connection=True;");
-                optionsBuilder.UseSqlServer(_connectionString);
+                optionsBuilder.UseSqlServer(connectionString);
             }
         }
 
@@ -39,36 +38,42 @@ namespace sistema_taxis.Models
             {
                 entity.Property(e => e.ChoferId).ValueGeneratedNever();
 
-                entity.Property(e => e.Curp).IsRequired();
-
                 entity.Property(e => e.Direccion)
                     .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.Ine).IsRequired();
-
-                entity.Property(e => e.Licencia).IsRequired();
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.StatusNavigation)
+                entity.HasOne(d => d.Status)
                     .WithMany(p => p.Chofer)
-                    .HasForeignKey(d => d.Status)
+                    .HasForeignKey(d => d.StatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Chofer__Status__412EB0B6");
+                    .HasConstraintName("FK_Chofer_Status");
 
-                entity.HasOne(d => d.TipoSangreNavigation)
+                entity.HasOne(d => d.TipoSangre)
                     .WithMany(p => p.Chofer)
-                    .HasForeignKey(d => d.TipoSangre)
-                    .HasConstraintName("FK__Chofer__TipoSang__403A8C7D");
-
-                entity.HasOne(d => d.UnidadNavigation)
-                    .WithMany(p => p.Chofer)
-                    .HasForeignKey(d => d.Unidad)
+                    .HasForeignKey(d => d.TipoSangreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Chofer__Unidad__4222D4EF");
+                    .HasConstraintName("FK_Chofer_TipoSangre");
+            });
+
+            modelBuilder.Entity<ChoferUnidad>(entity =>
+            {
+                entity.HasKey(e => new { e.ChoferId, e.UnidadId });
+
+                entity.HasOne(d => d.Chofer)
+                    .WithMany(p => p.ChoferUnidad)
+                    .HasForeignKey(d => d.ChoferId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Fk_ChoferUnidad_Chofer");
+
+                entity.HasOne(d => d.Unidad)
+                    .WithMany(p => p.ChoferUnidad)
+                    .HasForeignKey(d => d.UnidadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Fk_ChoferUnidad_Unidad");
             });
 
             modelBuilder.Entity<Pago>(entity =>
@@ -77,33 +82,34 @@ namespace sistema_taxis.Models
 
                 entity.Property(e => e.Cantidad).HasColumnType("money");
 
-                entity.HasOne(d => d.ChoferNavigation)
+                entity.Property(e => e.FechaPago).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Chofer)
                     .WithMany(p => p.Pago)
-                    .HasForeignKey(d => d.Chofer)
+                    .HasForeignKey(d => d.ChoferId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Pago__Chofer__44FF419A");
+                    .HasConstraintName("FK_Pago_Chofer");
             });
 
             modelBuilder.Entity<Status>(entity =>
             {
                 entity.Property(e => e.Estado)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<TipoSangre>(entity =>
             {
-                entity.HasKey(e => e.SangreId)
-                    .HasName("PK__TipoSang__0A88EAEBAB689315");
-
                 entity.Property(e => e.Tipo)
                     .IsRequired()
-                    .HasMaxLength(2);
+                    .HasMaxLength(3);
             });
 
             modelBuilder.Entity<Unidad>(entity =>
             {
                 entity.Property(e => e.UnidadId).ValueGeneratedNever();
+
+                entity.Property(e => e.FinSeguro).HasColumnType("datetime");
 
                 entity.Property(e => e.InicioSeguro).HasColumnType("datetime");
 
@@ -113,7 +119,7 @@ namespace sistema_taxis.Models
 
                 entity.Property(e => e.Marca)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(45);
 
                 entity.Property(e => e.Nss)
                     .IsRequired()
@@ -135,11 +141,17 @@ namespace sistema_taxis.Models
                     .IsRequired()
                     .HasMaxLength(45);
 
-                entity.HasOne(d => d.StatusNavigation)
+                entity.HasOne(d => d.Chofer)
                     .WithMany(p => p.Unidad)
-                    .HasForeignKey(d => d.Status)
+                    .HasForeignKey(d => d.ChoferId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Unidad__Status__3D5E1FD2");
+                    .HasConstraintName("Fk_Unidad_Chofer");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.Unidad)
+                    .HasForeignKey(d => d.StatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Unidad_Status");
             });
 
             OnModelCreatingPartial(modelBuilder);

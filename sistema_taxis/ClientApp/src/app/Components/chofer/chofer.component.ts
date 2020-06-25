@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ChoferModel } from '../../Models/chofer.model';
+import { ChoferService } from '../../Services/chofer.service';
 
 @Component({
   selector: 'app-chofer',
   templateUrl: './chofer.component.html',
   styleUrls: ['./chofer.component.css']
 })
-export class ChoferComponent implements OnInit {
+export class ChoferComponent{
 
-  constructor() { }
+  chofers: ChoferModel[] = [];
+  mensajeError: string;
 
-  ngOnInit() {
+  constructor(private chofer: ChoferService) {
+    chofer.GetChoferes().subscribe((data: ChoferModel[]) => {
+      this.chofers = data;
+      console.log(this.chofers);
+    });
   }
 
 }

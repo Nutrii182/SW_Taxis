@@ -7,24 +7,26 @@ namespace sistema_taxis.Models
     {
         public Chofer()
         {
+            ChoferUnidad = new HashSet<ChoferUnidad>();
             Pago = new HashSet<Pago>();
+            Unidad = new HashSet<Unidad>();
         }
 
         public Guid ChoferId { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
-        public int? TipoSangre { get; set; }
+        public int TipoSangreId { get; set; }
         public byte[] Ine { get; set; }
         public byte[] Curp { get; set; }
         public byte[] Licencia { get; set; }
-        public long Telefono { get; set; }
-        public long Celular { get; set; }
-        public int Status { get; set; }
-        public Guid Unidad { get; set; }
+        public long? Telefono { get; set; }
+        public long? Celular { get; set; }
+        public int StatusId { get; set; }
 
-        public virtual Status StatusNavigation { get; set; }
-        public virtual TipoSangre TipoSangreNavigation { get; set; }
-        public virtual Unidad UnidadNavigation { get; set; }
+        public virtual Status Status { get; set; }
+        public virtual TipoSangre TipoSangre { get; set; }
+        public virtual ICollection<ChoferUnidad> ChoferUnidad { get; set; }
         public virtual ICollection<Pago> Pago { get; set; }
+        public virtual ICollection<Unidad> Unidad { get; set; }
     }
 }

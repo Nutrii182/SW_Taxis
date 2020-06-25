@@ -7,7 +7,7 @@ namespace sistema_taxis.Models
     {
         public Unidad()
         {
-            Chofer = new HashSet<Chofer>();
+            ChoferUnidad = new HashSet<ChoferUnidad>();
         }
 
         public Guid UnidadId { get; set; }
@@ -20,9 +20,12 @@ namespace sistema_taxis.Models
         public string NumMotor { get; set; }
         public string Nss { get; set; }
         public DateTime InicioSeguro { get; set; }
-        public int Status { get; set; }
+        public DateTime FinSeguro { get; set; }
+        public int StatusId { get; set; }
+        public Guid ChoferId { get; set; }
 
-        public virtual Status StatusNavigation { get; set; }
-        public virtual ICollection<Chofer> Chofer { get; set; }
+        public virtual Chofer Chofer { get; set; }
+        public virtual Status Status { get; set; }
+        public virtual ICollection<ChoferUnidad> ChoferUnidad { get; set; }
     }
 }

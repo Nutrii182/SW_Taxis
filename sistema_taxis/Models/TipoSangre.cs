@@ -10,7 +10,7 @@ namespace sistema_taxis.Models
             Chofer = new HashSet<Chofer>();
         }
 
-        public int SangreId { get; set; }
+        public int TipoSangreId { get; set; }
         public string Tipo { get; set; }
 
         public virtual ICollection<Chofer> Chofer { get; set; }

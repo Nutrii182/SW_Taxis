@@ -32,7 +32,7 @@ import { PagoComponent } from './Components/pago/pago.component';
       { path: 'chofer', component: ChoferComponent },
       { path: 'unidad', component: UnidadComponent },
       { path: 'pago', component: PagoComponent },
-      { path: '**', pathMatch: 'full', redirectTo: 'Home' },
+      { path: '**', pathMatch: 'full', redirectTo: 'login' },
     ])
   ],
   providers: [],

@@ -1,1 +1,42 @@
-<p>chofer works!</p>
+<app-nav-menu></app-nav-menu>
+<button id="btn-Add" class="btn btn-primary">Agregar</button>
+<div class="row">
+  <div class="col">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Direccion</th>
+          <th scope="col">Tipo de Sangre</th>
+          <th scope="col">Ine</th>
+          <th scope="col">Curp</th>
+          <th scope="col">Licencia</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">Celular</th>
+          <th scope="col">Status</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ch of chofers">
+          <td>{{ch.nombre}}</td>
+          <td>{{ch.direccion}}</td>
+          <td>{{ch.tipoSangre.tipo}}</td>
+          <td>{{ch.ine}}</td>
+          <td>{{ch.curp}}</td>
+          <td>{{ch.licencia}}</td>
+          <td>{{ch.telefono}}</td>
+          <td>{{ch.celular}}</td>
+          <td>{{ch.status.estado}}</td>
+          <td>
+            <button title="Detalles" class="btn btn-success acciones"><span><i class="fas fa-info-circle"></i></span></button>
+            <button title="Editar" class="btn btn-primary acciones"><span><i class="far fa-edit"></i></span></button>
+            <button title="Eliminar" class="btn btn-danger acciones"><span><i class="far fa-trash-alt"></i></span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
