@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,8 +23,10 @@ namespace sistema_taxis
                 var services = amb.ServiceProvider;
                 try
                 {
+                    var userManager = services.GetRequiredService<UserManager<Usuario>>();
                     var context = services.GetRequiredService<SistemaTaxisContext>();
                     context.Database.Migrate();
+                    UsuarioPrueba.InsertarData(context, userManager).Wait();
                 }catch(Exception e)
                 {
                     var logging = services.GetRequiredService<ILogger<Program>>();

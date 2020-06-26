@@ -1,0 +1,24 @@
+#imgTaxis {
+  height: 100%;
+  vertical-align: top;
+}
+
+.container {
+  align-content: center;
+  margin-top: 25%;
+}
+
+#formLogin div {
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+.form-control-feedback {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+.form-control {
+  padding-left: 30px !important;
+}
