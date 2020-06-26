@@ -1,6 +1,5 @@
 export class ChoferModel {
 
-  ChoferId: string;
   Nombre: string;
   Direccion: string;
   TipoSangre: string;

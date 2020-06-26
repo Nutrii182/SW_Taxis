@@ -7,19 +7,22 @@
   <div id="divLogin" class="col-md-4">
     <div class="container">
       <h3 class="text-center">Iniciar Sesión</h3>
-      <form id="formLogin">
-        <div class="form-group">
+
+      <form class="validate-form" id="formLogin" (ngSubmit)="logeo(flogin)" #flogin="ngForm">
+        <span *ngIf="flogin.submitted && flogin.controls['email'].errors" class="text-danger">El correo no es válido</span>
+        <div class="form-group inpForm">
           <span><i class="fas fa-at form-control-feedback"></i></span>
-          <input type="email" class="form-control" placeholder="Correo Electrónico" required />
+          <input type="email" name="email" email [(ngModel)]="user.email" class="form-control" placeholder="Correo Electrónico" required />
         </div>
-        <div class="form-group">
+        <span *ngIf="flogin.submitted && flogin.controls['password'].errors" class="text-danger">La contraseña debe tener al menos 6 caractéres, una mayúscula y un caractér alfanumérico</span>
+        <div class="form-group inpForm">
           <span><i class="fas fa-unlock form-control-feedback"></i></span>
-          <input type="password" class="form-control" placeholder="Contraseña" required />
+          <input type="password" name="password" [(ngModel)]="user.password" class="form-control" placeholder="Contraseña" required />
         </div>
-        <div>
+        <div class="inpForm">
           <button type="submit" class="btn btn-primary form-control">Iniciar Sesión</button>
         </div>
-        <div class="form-group form-check">
+        <div class="form-group form-check inpForm">
           <input type="checkbox" class="form-check-input">
           <label class="form-check-label">Recordarme</label>
         </div>

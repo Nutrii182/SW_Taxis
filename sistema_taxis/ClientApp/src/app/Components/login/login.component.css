@@ -3,13 +3,20 @@
   vertical-align: top;
 }
 
+h3{
+    margin-bottom: 30px;
+}
+
+.inpForm {
+  margin-bottom: 30px;
+}
+
 .container {
   align-content: center;
   margin-top: 25%;
 }
 
 #formLogin div {
-  margin-top: 30px;
   border-radius: 10px;
 }
 
