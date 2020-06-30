@@ -7,7 +7,6 @@
   <div id="divLogin" class="col-md-4">
     <div class="container">
       <h3 class="text-center">Iniciar Sesión</h3>
-
       <form class="validate-form" id="formLogin" (ngSubmit)="logeo(flogin)" #flogin="ngForm">
         <span *ngIf="flogin.submitted && flogin.controls['email'].errors" class="text-danger">El correo no es válido</span>
         <div class="form-group inpForm">
@@ -30,7 +29,7 @@
       <hr />
     </div>
     <div class="text-center">
-      <a href="#">¿No tienes cuenta? Regístrate</a>
+      <a [routerLink]="['/registro']">¿No tienes cuenta? Regístrate</a>
     </div>
   </div>
 

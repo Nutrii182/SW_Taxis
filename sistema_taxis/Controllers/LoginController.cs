@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using sistema_taxis.Models;
+using sistema_taxis.Seguridad.Contratos;
 
 namespace sistema_taxis.Controllers
 {
@@ -16,15 +17,17 @@ namespace sistema_taxis.Controllers
         private SistemaTaxisContext context;
         private readonly UserManager<Usuario> userManager;
         private readonly SignInManager<Usuario> signInManager;
-        public LoginController(SistemaTaxisContext _context, UserManager<Usuario> _userManager, SignInManager<Usuario> _signInManager)
+        private readonly IJwtGenerator jwtGenerator;
+        public LoginController(SistemaTaxisContext _context, UserManager<Usuario> _userManager, SignInManager<Usuario> _signInManager, IJwtGenerator _jwtGenerator)
         {
             context = _context;
             userManager = _userManager;
             signInManager = _signInManager;
+            jwtGenerator = _jwtGenerator;
         }
 
         [HttpPost("[action]")]
-        public async Task<Usuario> IniciarSesion(UsuarioLogin u)
+        public async Task<UsuarioDto> IniciarSesion(UsuarioDto u)
         {
             try
             {
@@ -36,8 +39,18 @@ namespace sistema_taxis.Controllers
                 var result = await signInManager.CheckPasswordSignInAsync(user, u.Password, false);
 
                 if (result.Succeeded)
-                    return user;
-
+                {
+                    return new UsuarioDto
+                    {
+                        NombreCompleto = user.NombreCompleto,
+                        Email = user.Email,
+                        Token = jwtGenerator.CrearToken(user),
+                        NombreUsuario = user.UserName,
+                        Telefono = user.PhoneNumber,
+                        Foto = user.Foto
+                    };
+                }
+                    
                 return null;
 
             }catch(Exception e)

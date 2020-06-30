@@ -6,9 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ChoferService {
 
-  constructor(private http: HttpClient) {
-    console.log('Servicio Chofer Listo');
-  }
+  constructor(private http: HttpClient) { }
 
   GetChoferes() {
     return this.http.get('api/Chofer/ObtenerChoferes');

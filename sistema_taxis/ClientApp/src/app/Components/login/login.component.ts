@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsuarioModel } from '../../Models/usuario.model';
 import { UsuarioService } from '../../Services/usuario.service';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,7 +24,16 @@ export class LoginComponent implements OnInit {
       return;
 
     this.usuario.login(this.user).subscribe(result => {
-      this.router.navigate(["home"]);
+      if (result != null) {
+        console.log(result);
+        //this.router.navigate(["home"]);
+      } else {
+        Swal.fire({
+          title: 'Error',
+          text: 'Usuario y/o Contraseña Inválidos',
+          icon: 'error'
+        });
+      }
     }, (e) => {
         console.log(e.error);
     });

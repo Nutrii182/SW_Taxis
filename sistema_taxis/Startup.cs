@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using sistema_taxis.Models;
+using sistema_taxis.Seguridad.Contratos;
+using sistema_taxis.Seguridad.TokenSegurity;
 using System;
 
 namespace sistema_taxis
@@ -36,6 +38,8 @@ namespace sistema_taxis
             identityBuilder.AddEntityFrameworkStores<SistemaTaxisContext>();
             identityBuilder.AddSignInManager<SignInManager<Usuario>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();
+
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory

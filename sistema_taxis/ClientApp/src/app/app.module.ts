@@ -13,6 +13,7 @@ import { ChoferComponent } from './Components/chofer/chofer.component';
 import { UnidadComponent } from './Components/unidad/unidad.component';
 import { PagoComponent } from './Components/pago/pago.component';
 import { FooterComponent } from './Components/Shared/footer/footer.component';
+import { RegistroComponent } from './Components/registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FooterComponent } from './Components/Shared/footer/footer.component';
     UnidadComponent,
     PagoComponent,
     FooterComponent,
+    RegistroComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +34,7 @@ import { FooterComponent } from './Components/Shared/footer/footer.component';
     DataTablesModule,
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
+      { path: 'registro', component: RegistroComponent },
       { path: 'home', component: HomeComponent },
       { path: 'chofer', component: ChoferComponent },
       { path: 'unidad', component: UnidadComponent },

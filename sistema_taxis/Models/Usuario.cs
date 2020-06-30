@@ -9,5 +9,7 @@ namespace sistema_taxis.Models
     public class Usuario : IdentityUser
     {
         public string NombreCompleto { get; set; }
+        public byte[] Foto { get; set; }
+
     }
 }

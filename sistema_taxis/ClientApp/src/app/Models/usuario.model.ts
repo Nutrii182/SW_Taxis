@@ -6,4 +6,5 @@ export class UsuarioModel {
   Contraseña: string;
   NombreUsuario: string;
   Telefono: number;
+  Token: string;
 }
