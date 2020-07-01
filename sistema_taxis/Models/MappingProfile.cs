@@ -15,8 +15,8 @@ namespace sistema_taxis.Models
                 .ForMember(x => x.TipoSangre, y => y.MapFrom(z => z.TipoSangre))
                 .ForMember(x => x.Status, y => y.MapFrom(z => z.Status))
                 .ForMember(x => x.Pagos, y => y.MapFrom(z => z.PagoList));
-            CreateMap<ChoferUnidad, ChoferUnidadDto>();
             CreateMap<Unidad, UnidadDto>();
+            CreateMap<ChoferUnidad, ChoferUnidadDto>();
             CreateMap<TipoSangre, TipoSangreDto>();
             CreateMap<Status, StatusDto>();
             CreateMap<Pago, PagoDto>();

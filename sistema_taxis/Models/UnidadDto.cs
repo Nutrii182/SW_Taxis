@@ -18,6 +18,6 @@ namespace sistema_taxis.Models
         public string Nss { get; set; }
         public DateTime InicioSeguro { get; set; }
         public DateTime FinSeguro { get; set; }
-        public virtual ICollection<ChoferUnidad> ChoferLink { get; set; }
+        public StatusDto Status { get; set; }
     }
 }

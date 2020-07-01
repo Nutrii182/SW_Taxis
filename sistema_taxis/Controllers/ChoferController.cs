@@ -43,7 +43,8 @@ namespace sistema_taxis.Controllers
                 //                      Status = c.Status
                 //                  }).ToList();
                 //return listChofer;
-                var chofers = context.Chofer.Include(x => x.TipoSangre).Include(x => x.Status).Include(x => x.UnidadLink).ThenInclude(x => x.Unidad).ToList();
+                var chofers = context.Chofer.Include(x => x.TipoSangre).Include(x => x.Status)
+                    .Include(x => x.PagoList).Include(x => x.UnidadLink).ThenInclude(x => x.Unidad).ToList();
 
                 var choferDto = mapper.Map<List<Chofer>, List<ChoferDto>>(chofers);
                 return choferDto;
