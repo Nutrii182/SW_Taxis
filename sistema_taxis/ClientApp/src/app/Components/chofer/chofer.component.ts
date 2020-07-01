@@ -11,18 +11,19 @@ export class ChoferComponent implements OnInit {
 
   chofers: ChoferModel[];
   mensajeError: string;
-  showContent: boolean;
 
   constructor(private chofer: ChoferService) {
     chofer.GetChoferes().subscribe((data: ChoferModel[]) => {
       this.chofers = data;
-    });
+      console.log(data);
+    },
+      (e) => {
+        console.log(e);
+      });
   }
 
   ngOnInit() {
     this.chofers = [];
-    this.showContent = false;
-    setTimeout(() => this.showContent = true, 300);
   }
 
 }

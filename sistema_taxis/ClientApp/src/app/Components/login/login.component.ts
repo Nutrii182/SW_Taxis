@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
     if (form.invalid)
       return;
 
-    this.usuario.login(this.user).subscribe(result => {
-      if (result != null) {
-        console.log(result);
-        //this.router.navigate(["home"]);
+    this.usuario.login(this.user).subscribe(user => {
+      if (user != null) {
+        localStorage.setItem('usuario', JSON.stringify({ user }));
+        this.router.navigate(["home"]);
       } else {
         Swal.fire({
           title: 'Error',

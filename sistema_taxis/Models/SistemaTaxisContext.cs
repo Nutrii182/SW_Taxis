@@ -67,7 +67,7 @@ namespace sistema_taxis.Models
                 entity.HasKey(e => new { e.ChoferId, e.UnidadId });
 
                 entity.HasOne(d => d.Chofer)
-                    .WithMany(p => p.ChoferUnidad)
+                    .WithMany(p => p.UnidadLink)
                     .HasForeignKey(d => d.ChoferId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Fk_ChoferUnidad_Chofer");
@@ -88,7 +88,7 @@ namespace sistema_taxis.Models
                 entity.Property(e => e.FechaPago).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Chofer)
-                    .WithMany(p => p.Pago)
+                    .WithMany(p => p.PagoList)
                     .HasForeignKey(d => d.ChoferId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Pago_Chofer");
@@ -145,7 +145,7 @@ namespace sistema_taxis.Models
                     .HasMaxLength(45);
 
                 entity.HasOne(d => d.Chofer)
-                    .WithMany(p => p.Unidad)
+                    .WithMany(p => p.UnidadList)
                     .HasForeignKey(d => d.ChoferId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Fk_Unidad_Chofer");

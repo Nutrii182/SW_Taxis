@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,10 +11,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using sistema_taxis.Controllers;
 using sistema_taxis.Models;
 using sistema_taxis.Seguridad.Contratos;
 using sistema_taxis.Seguridad.TokenSegurity;
 using System;
+using System.Text;
 
 namespace sistema_taxis
 {
@@ -39,7 +44,20 @@ namespace sistema_taxis
             identityBuilder.AddSignInManager<SignInManager<Usuario>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();
 
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Mi Palabra Secreta"));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateAudience = false,
+                    ValidateIssuer = false
+                };
+            });
+
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddAutoMapper(typeof(ChoferController));
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
@@ -70,7 +88,11 @@ namespace sistema_taxis
                 app.UseSpaStaticFiles();
             }
 
+            app.UseAuthentication();
+
             app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

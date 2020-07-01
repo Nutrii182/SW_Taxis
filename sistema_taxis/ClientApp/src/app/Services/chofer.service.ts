@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChoferService {
+export class ChoferService{
 
-  constructor(private http: HttpClient) { }
+  usuario: any;
+
+  constructor(private http: HttpClient) {
+    this.usuario = JSON.parse(localStorage.getItem('usuario'));
+  }
 
   GetChoferes() {
-    return this.http.get('api/Chofer/ObtenerChoferes');
+
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.usuario.user.token
+    });
+    return this.http.get('api/Chofer/ObtenerChoferes', { headers });
   }
 }

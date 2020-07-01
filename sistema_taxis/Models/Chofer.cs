@@ -7,9 +7,9 @@ namespace sistema_taxis.Models
     {
         public Chofer()
         {
-            ChoferUnidad = new HashSet<ChoferUnidad>();
-            Pago = new HashSet<Pago>();
-            Unidad = new HashSet<Unidad>();
+            UnidadLink = new HashSet<ChoferUnidad>();
+            PagoList = new HashSet<Pago>();
+            UnidadList = new HashSet<Unidad>();
         }
 
         public Guid ChoferId { get; set; }
@@ -25,8 +25,8 @@ namespace sistema_taxis.Models
 
         public virtual Status Status { get; set; }
         public virtual TipoSangre TipoSangre { get; set; }
-        public virtual ICollection<ChoferUnidad> ChoferUnidad { get; set; }
-        public virtual ICollection<Pago> Pago { get; set; }
-        public virtual ICollection<Unidad> Unidad { get; set; }
+        public virtual ICollection<ChoferUnidad> UnidadLink { get; set; }
+        public virtual ICollection<Pago> PagoList { get; set; }
+        public virtual ICollection<Unidad> UnidadList { get; set; }
     }
 }
