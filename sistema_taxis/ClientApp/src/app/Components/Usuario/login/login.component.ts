@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UsuarioModel } from '../../Models/usuario.model';
-import { UsuarioService } from '../../Services/usuario.service';
+import { UsuarioModel } from '../../../Models/usuario.model';
+import { UsuarioService } from '../../../Services/usuario.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 

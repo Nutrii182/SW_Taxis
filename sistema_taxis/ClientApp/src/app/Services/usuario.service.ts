@@ -15,4 +15,11 @@ export class UsuarioService {
     }
     return this.http.post('api/Login/IniciarSesion', userData);
   }
+
+  registrar(usuario: UsuarioModel) {
+    const userData = {
+      ...usuario
+    }
+    return this.http.post('api/Login/NewUsuario', userData);
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ChoferModel } from '../../Models/chofer.model';
-import { ChoferService } from '../../Services/chofer.service';
+import { ChoferModel } from '../../../Models/chofer.model';
+import { ChoferService } from '../../../Services/chofer.service';
 
 @Component({
   selector: 'app-chofer',

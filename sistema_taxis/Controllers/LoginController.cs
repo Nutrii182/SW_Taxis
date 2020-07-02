@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using sistema_taxis.Models;
 using sistema_taxis.Seguridad.Contratos;
 
@@ -51,6 +52,48 @@ namespace sistema_taxis.Controllers
                     };
                 }
                     
+                return null;
+
+            }catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<UsuarioDto> NewUsuario(UsuarioDto us)
+        {
+            try
+            {
+                var user = await context.Users.Where(u => u.Email == us.Email || u.UserName == us.NombreUsuario).AnyAsync();
+
+                if (user)
+                    return null;
+
+                var newUser = new Usuario
+                {
+                    NombreCompleto = us.NombreCompleto,
+                    Email = us.Email,
+                    UserName = us.NombreUsuario,
+                    PhoneNumber = us.Telefono,
+                    Foto = null,
+                };
+
+                var result = await userManager.CreateAsync(newUser, us.Password);
+
+                if (result.Succeeded)
+                {
+                    return new UsuarioDto
+                    {
+                        NombreCompleto = newUser.NombreCompleto,
+                        Email = newUser.Email,
+                        NombreUsuario = newUser.UserName,
+                        Telefono = newUser.PhoneNumber,
+                        Foto = newUser.Foto,
+                        Token = jwtGenerator.CrearToken(newUser)
+                    };
+                }
+
                 return null;
 
             }catch(Exception e)

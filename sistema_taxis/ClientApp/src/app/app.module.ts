@@ -8,12 +8,12 @@ import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './Components/Shared/nav-menu/nav-menu.component';
 import { HomeComponent } from './Components/home/home.component';
-import { LoginComponent } from './Components/login/login.component';
-import { ChoferComponent } from './Components/chofer/chofer.component';
-import { UnidadComponent } from './Components/unidad/unidad.component';
-import { PagoComponent } from './Components/pago/pago.component';
+import { LoginComponent } from './Components/Usuario/login/login.component';
+import { ChoferComponent } from './Components/Chofer/chofer/chofer.component';
+import { UnidadComponent } from './Components/Unidad/unidad/unidad.component';
+import { PagoComponent } from './Components/Pago/pago/pago.component';
 import { FooterComponent } from './Components/Shared/footer/footer.component';
-import { RegistroComponent } from './Components/registro/registro.component';
+import { RegistroComponent } from './Components/Usuario/registro/registro.component';
 
 @NgModule({
   declarations: [

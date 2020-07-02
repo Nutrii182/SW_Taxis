@@ -24,29 +24,35 @@ namespace sistema_taxis.Controllers
 
         [HttpGet("[action]")]
         [Authorize]
-        public List<ChoferDto> ObtenerChoferes()
+        public List<ChoferDto> GetChofers()
         {
             try
             {
-                //var listChofer = (from c in context.Chofer
-                //                  select new Chofer
-                //                  {
-                //                      ChoferId = c.ChoferId,
-                //                      Nombre = c.Nombre,
-                //                      Direccion = c.Direccion,
-                //                      TipoSangre = c.TipoSangre,
-                //                      Ine = c.Ine,
-                //                      Curp = c.Curp,
-                //                      Licencia = c.Licencia,
-                //                      Telefono = c.Telefono,
-                //                      Celular = c.Celular,
-                //                      Status = c.Status
-                //                  }).ToList();
-                //return listChofer;
                 var chofers = context.Chofer.Include(x => x.TipoSangre).Include(x => x.Status)
                     .Include(x => x.PagoList).Include(x => x.UnidadLink).ThenInclude(x => x.Unidad).ToList();
 
-                var choferDto = mapper.Map<List<Chofer>, List<ChoferDto>>(chofers);
+                var chofersDto = mapper.Map<List<Chofer>, List<ChoferDto>>(chofers);
+                return chofersDto;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public ChoferDto GetChofer(Guid id)
+        {
+            try
+            {
+                var chofer = context.Chofer.Include(x => x.TipoSangre).Include(x => x.Status)
+                    .Include(x => x.PagoList).Include(x => x.UnidadLink).ThenInclude(x => x.Unidad).FirstOrDefault(c => c.ChoferId == id);
+
+                if (chofer == null)
+                    return null;
+
+                var choferDto = mapper.Map<Chofer, ChoferDto>(chofer);
                 return choferDto;
             }
             catch (Exception e)

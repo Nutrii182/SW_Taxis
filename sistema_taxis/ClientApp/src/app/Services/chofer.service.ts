@@ -17,6 +17,6 @@ export class ChoferService{
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + this.usuario.user.token
     });
-    return this.http.get('api/Chofer/ObtenerChoferes', { headers });
+    return this.http.get('api/Chofer/GetChofers', { headers });
   }
 }
