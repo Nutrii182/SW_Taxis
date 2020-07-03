@@ -34,7 +34,11 @@ export class RegistroComponent implements OnInit {
         this.router.navigate(["login"]);
       }
     }, (e) => {
-        console.log(e.error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Error Registrando Usuario',
+          icon: 'error'
+        });
     });
 
   }

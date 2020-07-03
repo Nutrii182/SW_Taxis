@@ -10,7 +10,7 @@ namespace sistema_taxis.Models
         {
             UnidadLink = new HashSet<ChoferUnidad>();
             PagoList = new HashSet<Pago>();
-            UnidadList = new HashSet<Unidad>();
+            //UnidadList = new HashSet<Unidad>();
         }
 
         public Guid ChoferId { get; set; }
@@ -30,6 +30,6 @@ namespace sistema_taxis.Models
         public virtual TipoSangre TipoSangre { get; set; }
         public virtual ICollection<ChoferUnidad> UnidadLink { get; set; }
         public virtual ICollection<Pago> PagoList { get; set; }
-        public virtual ICollection<Unidad> UnidadList { get; set; }
+        //public virtual ICollection<Unidad> UnidadList { get; set; }
     }
 }

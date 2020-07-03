@@ -110,12 +110,12 @@ namespace sistema_taxis.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public Chofer EditarChofer(Guid id, Chofer ch)
+        public bool EditarChofer(Guid id, Chofer ch)
         {
             var chofer = context.Chofer.Find(id);
 
             if (chofer == null)
-                return null;
+                return false;
 
             chofer.Nombre = ch.Nombre;
             chofer.Direccion = ch.Direccion;
@@ -150,8 +150,35 @@ namespace sistema_taxis.Controllers
 
             var result = context.SaveChanges();
             if (result > 0)
-                return chofer;
-            return null;
+                return true;
+            return false;
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public bool EliminaChofer(Guid id)
+        {
+
+            var unidadDB = context.ChoferUnidad.Where(c => c.ChoferId == id);
+            foreach (var unidad in unidadDB)
+                context.ChoferUnidad.Remove(unidad);
+
+            var pagoDB = context.Pago.Where(p => p.ChoferId == id);
+            foreach (var pago in pagoDB)
+                context.Pago.Remove(pago);
+
+            var curso = context.Chofer.Find(id);
+
+            if (curso == null)
+                throw new Exception("No se encontro el curso");
+
+            context.Chofer.Remove(curso);
+
+            var result = context.SaveChanges();
+
+            if (result > 0)
+                return true;
+            return false;
         }
     }
 }

@@ -144,11 +144,11 @@ namespace sistema_taxis.Models
                     .IsRequired()
                     .HasMaxLength(45);
 
-                entity.HasOne(d => d.Chofer)
-                    .WithMany(p => p.UnidadList)
-                    .HasForeignKey(d => d.ChoferId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_Unidad_Chofer");
+                //entity.HasOne(d => d.Chofer)
+                //    .WithMany(p => p.UnidadList)
+                //    .HasForeignKey(d => d.ChoferId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("Fk_Unidad_Chofer");
 
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.Unidad)

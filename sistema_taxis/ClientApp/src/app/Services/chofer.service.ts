@@ -27,4 +27,11 @@ export class ChoferService{
     });
     return this.http.get(`api/Chofer/${id}`, { headers });
   }
+
+  DeleteChofer(id: string) {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.usuario.user.token
+    });
+    return this.http.delete(`api/Chofer/${id}`, { headers });
+  }
 }
