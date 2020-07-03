@@ -60,6 +60,9 @@ namespace sistema_taxis
             services.AddAutoMapper(typeof(ChoferController));
 
             services.AddControllersWithViews();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

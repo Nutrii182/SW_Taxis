@@ -60,5 +60,98 @@ namespace sistema_taxis.Controllers
                 throw e;
             }
         }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public Chofer NewChofer(Chofer c)
+        {
+            var existe = context.Chofer.Where(ch => ch.Nombre == c.Nombre && ch.Direccion == c.Direccion && ch.TipoSangreId == c.TipoSangreId).FirstOrDefault();
+
+            if (existe != null)
+                return null;
+
+            Guid _choferId = Guid.NewGuid();
+            var chofer = new Chofer
+            {
+                ChoferId = _choferId,
+                Nombre = c.Nombre,
+                Direccion = c.Direccion,
+                TipoSangreId = c.TipoSangreId,
+                Ine = c.Ine,
+                Curp = c.Curp,
+                Licencia = c.Licencia,
+                Telefono = c.Telefono,
+                Celular = c.Celular,
+                StatusId = c.StatusId,
+                ListUnidad = c.ListUnidad
+            };
+
+            context.Chofer.Add(chofer);
+
+            if (c.ListUnidad != null)
+            {
+                foreach (var id in c.ListUnidad)
+                {
+                    var choferUnidad = new ChoferUnidad
+                    {
+                        ChoferId = _choferId,
+                        UnidadId = id
+                    };
+                    context.ChoferUnidad.Add(choferUnidad);
+                }
+            }
+
+            var cambios = context.SaveChanges();
+
+            if (cambios > 0)
+                return chofer;
+            return null;
+        }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public Chofer EditarChofer(Guid id, Chofer ch)
+        {
+            var chofer = context.Chofer.Find(id);
+
+            if (chofer == null)
+                return null;
+
+            chofer.Nombre = ch.Nombre;
+            chofer.Direccion = ch.Direccion;
+            chofer.TipoSangreId = ch.TipoSangreId;
+            chofer.Ine = ch.Ine;
+            chofer.Curp = ch.Curp;
+            chofer.Licencia = ch.Licencia;
+            chofer.Telefono = ch.Telefono;
+            chofer.Celular = ch.Celular;
+            chofer.StatusId = ch.StatusId;
+
+            if(ch.ListUnidad != null)
+            {
+                if(ch.ListUnidad.Count > 0)
+                {
+                    var UnidadDB = context.ChoferUnidad.Where(x => x.ChoferId == ch.ChoferId);
+
+                    foreach (var chof in UnidadDB)
+                        context.ChoferUnidad.Remove(chof);
+
+                    foreach(var idUni in ch.ListUnidad)
+                    {
+                        var newUnidad = new ChoferUnidad
+                        {
+                            ChoferId = ch.ChoferId,
+                            UnidadId = idUni
+                        };
+                        context.ChoferUnidad.Add(newUnidad);
+                    }
+                }
+            }
+
+            var result = context.SaveChanges();
+            if (result > 0)
+                return chofer;
+            return null;
+        }
     }
 }

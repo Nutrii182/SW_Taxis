@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace sistema_taxis.Models
 {
@@ -22,6 +23,8 @@ namespace sistema_taxis.Models
         public long? Telefono { get; set; }
         public long? Celular { get; set; }
         public int StatusId { get; set; }
+        [NotMapped]
+        public List<Guid> ListUnidad { get; set; }
 
         public virtual Status Status { get; set; }
         public virtual TipoSangre TipoSangre { get; set; }
