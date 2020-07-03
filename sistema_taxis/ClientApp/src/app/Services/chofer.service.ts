@@ -19,4 +19,12 @@ export class ChoferService{
     });
     return this.http.get('api/Chofer/GetChofers', { headers });
   }
+
+  GetChofer(id: string) {
+
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.usuario.user.token
+    });
+    return this.http.get(`api/Chofer/${id}`, { headers });
+  }
 }

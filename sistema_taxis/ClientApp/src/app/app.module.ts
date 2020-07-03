@@ -14,6 +14,10 @@ import { UnidadComponent } from './Components/Unidad/unidad/unidad.component';
 import { PagoComponent } from './Components/Pago/pago/pago.component';
 import { FooterComponent } from './Components/Shared/footer/footer.component';
 import { RegistroComponent } from './Components/Usuario/registro/registro.component';
+import { UsuarioComponent } from './Components/Usuario/usuario/usuario.component';
+import { ChoferNuevoComponent } from './Components/Chofer/chofer-nuevo/chofer-nuevo.component';
+import { ChoferEditarComponent } from './Components/Chofer/chofer-editar/chofer-editar.component';
+import { ChoferDetalleComponent } from './Components/Chofer/chofer-detalle/chofer-detalle.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,10 @@ import { RegistroComponent } from './Components/Usuario/registro/registro.compon
     PagoComponent,
     FooterComponent,
     RegistroComponent,
+    UsuarioComponent,
+    ChoferNuevoComponent,
+    ChoferEditarComponent,
+    ChoferDetalleComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,8 +45,12 @@ import { RegistroComponent } from './Components/Usuario/registro/registro.compon
       { path: 'registro', component: RegistroComponent },
       { path: 'home', component: HomeComponent },
       { path: 'chofer', component: ChoferComponent },
+      { path: 'nuevochofer/:id', component: ChoferNuevoComponent },
+      { path: 'editachofer/:id', component: ChoferEditarComponent },
+      { path: 'detallechofer/:id', component: ChoferDetalleComponent },
       { path: 'unidad', component: UnidadComponent },
       { path: 'pago', component: PagoComponent },
+      { path: 'usuario', component: UsuarioComponent },
       { path: '**', pathMatch: 'full', redirectTo: 'login' },
     ])
   ],

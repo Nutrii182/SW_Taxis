@@ -26,8 +26,8 @@
           <td>{{ch.licencia}}</td>
           <td>{{ch.status.estado}}</td>
           <td>
-            <button title="Detalles" class="btn btn-success acciones"><span><i class="fas fa-info-circle"></i></span></button>
-            <button title="Editar" class="btn btn-primary acciones"><span><i class="far fa-edit"></i></span></button>
+            <button title="Detalles" class="btn btn-success acciones" [routerLink]="['/detallechofer', ch.choferId]"><span><i class="fas fa-info-circle"></i></span></button>
+            <button title="Editar" class="btn btn-primary acciones" [routerLink]="['/editachofer', ch.choferId]"><span><i class="far fa-edit"></i></span></button>
             <button title="Eliminar" class="btn btn-danger acciones"><span><i class="far fa-trash-alt"></i></span></button>
           </td>
         </tr>
