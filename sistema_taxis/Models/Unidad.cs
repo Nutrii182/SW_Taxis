@@ -22,9 +22,9 @@ namespace sistema_taxis.Models
         public DateTime InicioSeguro { get; set; }
         public DateTime FinSeguro { get; set; }
         public int StatusId { get; set; }
-        public Guid ChoferId { get; set; }
+        //public Guid ChoferId { get; set; }
 
-        public virtual Chofer Chofer { get; set; }
+        //public virtual List<Chofer> Chofer { get; set; }
         public virtual Status Status { get; set; }
         public virtual ICollection<ChoferUnidad> ChoferUnidad { get; set; }
     }

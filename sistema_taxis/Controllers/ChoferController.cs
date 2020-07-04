@@ -50,7 +50,7 @@ namespace sistema_taxis.Controllers
                     .Include(x => x.PagoList).Include(x => x.UnidadLink).ThenInclude(x => x.Unidad).FirstOrDefault(c => c.ChoferId == id);
 
                 if (chofer == null)
-                    return null;
+                    throw new Exception("No se encontro el Chofer");
 
                 var choferDto = mapper.Map<Chofer, ChoferDto>(chofer);
                 return choferDto;
@@ -65,47 +65,54 @@ namespace sistema_taxis.Controllers
         [Authorize]
         public Chofer NewChofer(Chofer c)
         {
-            var existe = context.Chofer.Where(ch => ch.Nombre == c.Nombre && ch.Direccion == c.Direccion && ch.TipoSangreId == c.TipoSangreId).FirstOrDefault();
+            try
+            {
+                var existe = context.Chofer.Where(ch => ch.Nombre == c.Nombre && ch.Direccion == c.Direccion && ch.TipoSangreId == c.TipoSangreId).FirstOrDefault();
 
-            if (existe != null)
+                if (existe != null)
+                    return null;
+
+                Guid _choferId = Guid.NewGuid();
+                var chofer = new Chofer
+                {
+                    ChoferId = _choferId,
+                    Nombre = c.Nombre,
+                    Direccion = c.Direccion,
+                    TipoSangreId = c.TipoSangreId,
+                    Ine = c.Ine,
+                    Curp = c.Curp,
+                    Licencia = c.Licencia,
+                    Telefono = c.Telefono,
+                    Celular = c.Celular,
+                    StatusId = c.StatusId,
+                    ListUnidad = c.ListUnidad
+                };
+
+                context.Chofer.Add(chofer);
+
+                if (c.ListUnidad != null)
+                {
+                    foreach (var id in c.ListUnidad)
+                    {
+                        var choferUnidad = new ChoferUnidad
+                        {
+                            ChoferId = _choferId,
+                            UnidadId = id
+                        };
+                        context.ChoferUnidad.Add(choferUnidad);
+                    }
+                }
+
+                var cambios = context.SaveChanges();
+
+                if (cambios > 0)
+                    return chofer;
                 return null;
 
-            Guid _choferId = Guid.NewGuid();
-            var chofer = new Chofer
+            }catch(Exception e)
             {
-                ChoferId = _choferId,
-                Nombre = c.Nombre,
-                Direccion = c.Direccion,
-                TipoSangreId = c.TipoSangreId,
-                Ine = c.Ine,
-                Curp = c.Curp,
-                Licencia = c.Licencia,
-                Telefono = c.Telefono,
-                Celular = c.Celular,
-                StatusId = c.StatusId,
-                ListUnidad = c.ListUnidad
-            };
-
-            context.Chofer.Add(chofer);
-
-            if (c.ListUnidad != null)
-            {
-                foreach (var id in c.ListUnidad)
-                {
-                    var choferUnidad = new ChoferUnidad
-                    {
-                        ChoferId = _choferId,
-                        UnidadId = id
-                    };
-                    context.ChoferUnidad.Add(choferUnidad);
-                }
+                throw e;
             }
-
-            var cambios = context.SaveChanges();
-
-            if (cambios > 0)
-                return chofer;
-            return null;
         }
 
         [HttpPut("{id}")]
