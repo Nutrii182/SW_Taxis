@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ChoferService } from '../../../Services/chofer.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chofer-editar',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChoferEditarComponent implements OnInit {
 
-  constructor() { }
+  chofer: any;
+
+  constructor(private choferService: ChoferService, private route: ActivatedRoute) {
+    let id = this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit() {
   }

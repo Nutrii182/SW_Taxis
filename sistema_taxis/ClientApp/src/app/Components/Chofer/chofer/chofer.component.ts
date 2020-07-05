@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { ChoferModel } from '../../../Models/chofer.model';
 import { ChoferService } from '../../../Services/chofer.service';
 import { Router } from '@angular/router';
@@ -48,14 +48,14 @@ export class ChoferComponent implements OnInit {
             location.reload();
           }
         }, (e) => {
-            Swal.fire({
-              title: 'Error',
-              text: 'Error Eliminando Chofer',
-              icon: 'error'
-            });
+          Swal.fire({
+            title: 'Error',
+            text: 'Error Eliminando Chofer',
+            icon: 'error'
+          });
         });
       }
-    })
+    });
   }
 
 }

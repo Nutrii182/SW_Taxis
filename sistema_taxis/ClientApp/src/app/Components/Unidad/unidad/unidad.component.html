@@ -1,2 +1,37 @@
 <app-nav-menu></app-nav-menu>
-<p>unidad works!</p>
+<button id="btn-Add" class="btn btn-primary" [routerLink]="['/nuevaunidad']">Agregar</button>
+<div class="row">
+  <div class="col">
+
+    <table id="tableChofer" datatable class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Numero de Unidad</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Inicio de Seguro</th>
+          <th scope="col">Fin de Seguro</th>
+          <th scope="col">Status</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let uni of unidades">
+          <td>{{uni.numUnidad}}</td>
+          <td>{{uni.marca}}</td>
+          <td>{{uni.modelo}}</td>
+          <td>{{uni.inicioSeguro}}</td>
+          <td>{{uni.finSeguro}}</td>
+          <td>{{uni.status.estado}}</td>
+          <td>
+            <button title="Detalles" class="btn btn-success acciones" [routerLink]="['/detalleunidad', uni.unidadId]"><span><i class="fas fa-info-circle"></i></span></button>
+            <button title="Editar" class="btn btn-primary acciones" [routerLink]="['/editaunidad', uni.unidadId]"><span><i class="far fa-edit"></i></span></button>
+            <button title="Eliminar" class="btn btn-danger acciones" (click)="eliminaUnidad(uni.unidadId)"><span><i class="far fa-trash-alt"></i></span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+<app-footer></app-footer>

@@ -38,11 +38,13 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\Models\chofer.model.ts" />
+    <None Remove="ClientApp\src\app\Models\unidad.model.ts" />
     <None Remove="ClientApp\src\app\Models\usuario.model.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\Models\chofer.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Models\unidad.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Models\usuario.model.ts" />
   </ItemGroup>
 
