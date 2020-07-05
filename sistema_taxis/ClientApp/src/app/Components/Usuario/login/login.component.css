@@ -1,7 +1,19 @@
 #imgTaxis {
-  height: 100%;
-  vertical-align: top;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+
 }
+
+#login{
+    position: fixed;
+    background: white;
+    float: right; /* no funciona aún */
+    height: 100%;
+    width: 35%;
+    padding: 2%;
+}
+
 
 h3{
     margin-bottom: 30px;

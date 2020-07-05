@@ -1,36 +1,36 @@
-<div class="row">
 
-  <div class="col-md-8">
-    <img id="imgTaxis" class="img-responsive img-fluid" src="./assets/img/taxi-wallpaper.jpg" />
-  </div>
 
-  <div id="divLogin" class="col-md-4">
-    <div class="container">
-      <h3 class="text-center">Iniciar Sesión</h3>
-      <form class="validate-form" id="formLogin" (ngSubmit)="logeo(flogin)" #flogin="ngForm">
-        <span *ngIf="flogin.submitted && flogin.controls['email'].errors" class="text-danger">El correo no es válido</span>
-        <div class="form-group inpForm">
-          <span><i class="fas fa-at form-control-feedback"></i></span>
-          <input type="email" name="email" email [(ngModel)]="user.email" class="form-control" placeholder="Correo Electrónico" required />
-        </div>
-        <span *ngIf="flogin.submitted && flogin.controls['password'].errors" class="text-danger">La contraseña debe tener al menos 6 caractéres, una mayúscula y un caractér alfanumérico</span>
-        <div class="form-group inpForm">
-          <span><i class="fas fa-unlock form-control-feedback"></i></span>
-          <input type="password" name="password" [(ngModel)]="user.password" class="form-control" placeholder="Contraseña" required />
-        </div>
-        <div class="inpForm">
-          <button type="submit" class="btn btn-primary form-control">Iniciar Sesión</button>
-        </div>
-        <div class="form-group form-check inpForm">
-          <input type="checkbox" class="form-check-input">
-          <label class="form-check-label">Recordarme</label>
-        </div>
-      </form>
-      <hr />
-    </div>
-    <div class="text-center">
-      <a [routerLink]="['/registro']">¿No tienes cuenta? Regístrate</a>
-    </div>
-  </div>
-
+<div>
+  <img id="imgTaxis" class="img-responsive img-fluid" src="./assets/img/taxi-wallpaper.jpg" />
 </div>
+
+
+<div id="login">
+  <div>
+    <h3 class="text-center">Iniciar Sesión</h3>
+    <form class="validate-form" id="formLogin" (ngSubmit)="logeo(flogin)" #flogin="ngForm">
+      <span *ngIf="flogin.submitted && flogin.controls['email'].errors" class="text-danger">El correo no es válido</span>
+      <div class="form-group inpForm">
+        <span><i class="fas fa-at form-control-feedback"></i></span>
+        <input type="email" name="email" email [(ngModel)]="user.email" class="form-control" placeholder="Correo Electrónico" required />
+      </div>
+      <span *ngIf="flogin.submitted && flogin.controls['password'].errors" class="text-danger">La contraseña debe tener al menos 6 caractéres, una mayúscula y un caractér alfanumérico</span>
+      <div class="form-group inpForm">
+        <span><i class="fas fa-unlock form-control-feedback"></i></span>
+        <input type="password" name="password" [(ngModel)]="user.password" class="form-control" placeholder="Contraseña" required />
+      </div>
+      <div class="inpForm">
+        <button type="submit" class="btn btn-primary form-control">Iniciar Sesión</button>
+      </div>
+      <div class="form-group form-check inpForm">
+        <input type="checkbox" class="form-check-input">
+        <label class="form-check-label">Recordarme</label>
+      </div>
+    </form>
+    <hr />
+  </div>
+  <div class="text-center">
+    <a [routerLink]="['/registro']">¿No tienes cuenta? Regístrate</a>
+  </div>
+</div>
+
