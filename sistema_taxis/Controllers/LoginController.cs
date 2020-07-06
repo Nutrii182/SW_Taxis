@@ -68,7 +68,7 @@ namespace sistema_taxis.Controllers
                 var user = await context.Users.Where(u => u.Email == us.Email || u.UserName == us.NombreUsuario).AnyAsync();
 
                 if (user)
-                    return null;
+                    throw new Exception("El usuario ya existe");
 
                 var newUser = new Usuario
                 {
@@ -94,7 +94,7 @@ namespace sistema_taxis.Controllers
                     };
                 }
 
-                return null;
+                throw new Exception("No se pudo crear el usuario");
 
             }catch(Exception e)
             {
