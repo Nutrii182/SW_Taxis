@@ -13,11 +13,19 @@ namespace sistema_taxis.Seguridad.TokenSegurity
 {
     public class JwtGenerator : IJwtGenerator
     {
-        public string CrearToken(Usuario usuario)
+        public string CrearToken(Usuario usuario, List<string> roles)
         {
             var claims = new List<Claim> {
                 new Claim(JwtRegisteredClaimNames.NameId, usuario.UserName)
             };
+
+            if(roles != null)
+            {
+                foreach(var role in roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                }
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Mi Palabra Secreta"));
             var credenciales = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);

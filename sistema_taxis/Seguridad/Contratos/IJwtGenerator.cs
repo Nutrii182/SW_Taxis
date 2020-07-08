@@ -8,6 +8,6 @@ namespace sistema_taxis.Seguridad.Contratos
 {
     public interface IJwtGenerator
     {
-        string CrearToken(Usuario usuario);
+        string CrearToken(Usuario usuario, List<string> roles);
     }
 }

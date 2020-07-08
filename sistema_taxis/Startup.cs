@@ -43,6 +43,7 @@ namespace sistema_taxis
 
             identityBuilder.AddRoles<IdentityRole>();
             identityBuilder.AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<Usuario, IdentityRole>>();
+
             identityBuilder.AddEntityFrameworkStores<SistemaTaxisContext>();
             identityBuilder.AddSignInManager<SignInManager<Usuario>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();

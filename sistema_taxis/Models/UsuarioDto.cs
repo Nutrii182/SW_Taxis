@@ -7,6 +7,7 @@ namespace sistema_taxis.Models
 {
     public class UsuarioDto
     {
+        public string UsuarioId { get; set; }
         public string NombreCompleto { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }

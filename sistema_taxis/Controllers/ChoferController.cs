@@ -116,7 +116,7 @@ namespace sistema_taxis.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public bool EditarChofer(Guid id, Chofer ch)
         {
             var chofer = context.Chofer.Find(id);
@@ -162,7 +162,7 @@ namespace sistema_taxis.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public bool EliminaChofer(Guid id)
         {
 

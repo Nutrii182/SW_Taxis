@@ -99,7 +99,7 @@ namespace sistema_taxis.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public bool EditaUnidad(Guid id, Unidad uni)
         {
             try
@@ -132,7 +132,7 @@ namespace sistema_taxis.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public bool EliminaUnidad(Guid id)
         {
             var unidadesDb = context.ChoferUnidad.Where(u => u.UnidadId == id);
