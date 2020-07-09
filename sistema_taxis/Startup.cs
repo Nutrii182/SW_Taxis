@@ -61,6 +61,7 @@ namespace sistema_taxis
             });
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IUsuarioSesion, UsuarioSesion>();
             services.AddAutoMapper(typeof(ChoferController));
 
             services.AddControllersWithViews();

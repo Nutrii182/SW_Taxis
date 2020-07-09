@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,15 +21,17 @@ namespace sistema_taxis.Controllers
     {
         private SistemaTaxisContext context;
         private readonly IJwtGenerator jwtGenerator;
+        private readonly IUsuarioSesion usuarioSesion;
         private readonly UserManager<Usuario> userManager;
         private readonly SignInManager<Usuario> signInManager;
         private readonly IPasswordHasher<Usuario> passwordHasher;
-        public LoginController(SistemaTaxisContext _context, UserManager<Usuario> _userManager, SignInManager<Usuario> _signInManager, IJwtGenerator _jwtGenerator, IPasswordHasher<Usuario> _passwordHasher)
+        public LoginController(SistemaTaxisContext _context, UserManager<Usuario> _userManager, SignInManager<Usuario> _signInManager, IJwtGenerator _jwtGenerator, IPasswordHasher<Usuario> _passwordHasher, IUsuarioSesion _usuarioSesion)
         {
             context = _context;
             userManager = _userManager;
-            signInManager = _signInManager;
             jwtGenerator = _jwtGenerator;
+            signInManager = _signInManager;
+            usuarioSesion = _usuarioSesion;
             passwordHasher = _passwordHasher;
         }
 
@@ -50,6 +54,7 @@ namespace sistema_taxis.Controllers
                 {
                     return new UsuarioDto
                     {
+                        UsuarioId = user.Id,
                         NombreCompleto = user.NombreCompleto,
                         Email = user.Email,
                         Token = jwtGenerator.CrearToken(user, listRoles),
@@ -123,7 +128,7 @@ namespace sistema_taxis.Controllers
                 if (user == null)
                     throw new Exception("No se encontro el Usuario");
 
-                var userExist = await context.Users.Where(u => u.Email == us.Email && u.UserName != us.NombreUsuario).AnyAsync();
+                var userExist = await context.Users.Where(u => u.Email == us.Email || u.UserName == us.NombreUsuario).AnyAsync();
 
                 user.NombreCompleto = us.NombreCompleto;
                 user.Email = us.Email;
@@ -233,6 +238,34 @@ namespace sistema_taxis.Controllers
                 if (result.Succeeded)
                     return true;
                 return false;
+            }catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<UsuarioDto> UsuarioActual()
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(usuarioSesion.ObtenerUsuarioSesion());
+
+                var resultRoles = await userManager.GetRolesAsync(user);
+                var listRoles = new List<string>(resultRoles);
+
+                return new UsuarioDto
+                {
+                    UsuarioId = user.Id,
+                    NombreCompleto = user.NombreCompleto,
+                    Email = user.Email,
+                    NombreUsuario = user.UserName,
+                    Telefono = user.PhoneNumber,
+                    Token = jwtGenerator.CrearToken(user, listRoles),
+                    Foto = user.Foto
+                };
+
             }catch(Exception e)
             {
                 throw e;

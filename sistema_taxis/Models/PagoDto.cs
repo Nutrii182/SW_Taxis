@@ -11,6 +11,7 @@ namespace sistema_taxis.Models
         public Guid PagoId { get; set; }
         public decimal Cantidad { get; set; }
         public DateTime FechaPago { get; set; }
+        public string Usuario { get; set; }
         public Guid ChoferId { get; set; }
     }
 }

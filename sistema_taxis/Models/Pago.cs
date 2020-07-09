@@ -10,6 +10,7 @@ namespace sistema_taxis.Models
         [Column(TypeName = "decimal(18,4)")]
         public decimal Cantidad { get; set; }
         public DateTime FechaPago { get; set; }
+        public string Usuario { get; set; }
         public Guid ChoferId { get; set; }
 
         public virtual Chofer Chofer { get; set; }

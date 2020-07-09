@@ -87,6 +87,8 @@ namespace sistema_taxis.Models
 
                 entity.Property(e => e.FechaPago).HasColumnType("datetime");
 
+                entity.Property(e => e.Usuario);
+
                 entity.HasOne(d => d.Chofer)
                     .WithMany(p => p.PagoList)
                     .HasForeignKey(d => d.ChoferId)
