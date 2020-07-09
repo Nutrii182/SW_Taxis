@@ -10,8 +10,8 @@ using sistema_taxis.Models;
 namespace sistema_taxis.Migrations
 {
     [DbContext(typeof(SistemaTaxisContext))]
-    [Migration("20200625213504_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200709203310_SecondCreation")]
+    partial class SecondCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -163,6 +163,9 @@ namespace sistema_taxis.Migrations
                     b.Property<byte[]>("Curp")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<decimal>("Deuda")
+                        .HasColumnType("decimal(18,4)");
+
                     b.Property<string>("Direccion")
                         .IsRequired()
                         .HasColumnType("nvarchar(200)")
@@ -226,6 +229,9 @@ namespace sistema_taxis.Migrations
                     b.Property<DateTime>("FechaPago")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("Usuario")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("PagoId");
 
                     b.HasIndex("ChoferId");
@@ -270,9 +276,6 @@ namespace sistema_taxis.Migrations
             modelBuilder.Entity("sistema_taxis.Models.Unidad", b =>
                 {
                     b.Property<Guid>("UnidadId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ChoferId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("FinSeguro")
@@ -324,8 +327,6 @@ namespace sistema_taxis.Migrations
 
                     b.HasKey("UnidadId");
 
-                    b.HasIndex("ChoferId");
-
                     b.HasIndex("StatusId");
 
                     b.ToTable("Unidad");
@@ -349,6 +350,9 @@ namespace sistema_taxis.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<byte[]>("Foto")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -468,7 +472,7 @@ namespace sistema_taxis.Migrations
             modelBuilder.Entity("sistema_taxis.Models.ChoferUnidad", b =>
                 {
                     b.HasOne("sistema_taxis.Models.Chofer", "Chofer")
-                        .WithMany("ChoferUnidad")
+                        .WithMany("UnidadLink")
                         .HasForeignKey("ChoferId")
                         .HasConstraintName("Fk_ChoferUnidad_Chofer")
                         .IsRequired();
@@ -483,7 +487,7 @@ namespace sistema_taxis.Migrations
             modelBuilder.Entity("sistema_taxis.Models.Pago", b =>
                 {
                     b.HasOne("sistema_taxis.Models.Chofer", "Chofer")
-                        .WithMany("Pago")
+                        .WithMany("PagoList")
                         .HasForeignKey("ChoferId")
                         .HasConstraintName("FK_Pago_Chofer")
                         .IsRequired();
@@ -491,12 +495,6 @@ namespace sistema_taxis.Migrations
 
             modelBuilder.Entity("sistema_taxis.Models.Unidad", b =>
                 {
-                    b.HasOne("sistema_taxis.Models.Chofer", "Chofer")
-                        .WithMany("Unidad")
-                        .HasForeignKey("ChoferId")
-                        .HasConstraintName("Fk_Unidad_Chofer")
-                        .IsRequired();
-
                     b.HasOne("sistema_taxis.Models.Status", "Status")
                         .WithMany("Unidad")
                         .HasForeignKey("StatusId")

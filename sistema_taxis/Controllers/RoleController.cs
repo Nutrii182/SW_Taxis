@@ -24,7 +24,7 @@ namespace sistema_taxis.Controllers
         }
 
         [HttpPost("crear")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<bool> CrearRole(Role r)
         {
             try
@@ -85,7 +85,7 @@ namespace sistema_taxis.Controllers
         }
 
         [HttpPost("agregarRoleUsuario")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<bool> AgregarRoleUsuario(UsuarioRole ur)
         {
             try

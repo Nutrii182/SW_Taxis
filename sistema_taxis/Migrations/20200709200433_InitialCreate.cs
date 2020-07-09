@@ -40,7 +40,8 @@ namespace sistema_taxis.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    NombreCompleto = table.Column<string>(nullable: true)
+                    NombreCompleto = table.Column<string>(nullable: true),
+                    Foto = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -180,6 +181,34 @@ namespace sistema_taxis.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Unidad",
+                columns: table => new
+                {
+                    UnidadId = table.Column<Guid>(nullable: false),
+                    NumUnidad = table.Column<string>(maxLength: 45, nullable: false),
+                    Vehiculo = table.Column<string>(maxLength: 45, nullable: false),
+                    Marca = table.Column<string>(maxLength: 45, nullable: false),
+                    Linea = table.Column<string>(maxLength: 45, nullable: false),
+                    Modelo = table.Column<int>(nullable: false),
+                    NumSerie = table.Column<string>(maxLength: 45, nullable: false),
+                    NumMotor = table.Column<string>(maxLength: 45, nullable: false),
+                    Nss = table.Column<string>(maxLength: 45, nullable: false),
+                    InicioSeguro = table.Column<DateTime>(type: "datetime", nullable: false),
+                    FinSeguro = table.Column<DateTime>(type: "datetime", nullable: false),
+                    StatusId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Unidad", x => x.UnidadId);
+                    table.ForeignKey(
+                        name: "FK_Unidad_Status",
+                        column: x => x.StatusId,
+                        principalTable: "Status",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Chofer",
                 columns: table => new
                 {
@@ -212,61 +241,6 @@ namespace sistema_taxis.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pago",
-                columns: table => new
-                {
-                    PagoId = table.Column<Guid>(nullable: false),
-                    Cantidad = table.Column<decimal>(type: "money", nullable: false),
-                    FechaPago = table.Column<DateTime>(type: "datetime", nullable: false),
-                    ChoferId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pago", x => x.PagoId);
-                    table.ForeignKey(
-                        name: "FK_Pago_Chofer",
-                        column: x => x.ChoferId,
-                        principalTable: "Chofer",
-                        principalColumn: "ChoferId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Unidad",
-                columns: table => new
-                {
-                    UnidadId = table.Column<Guid>(nullable: false),
-                    NumUnidad = table.Column<string>(maxLength: 45, nullable: false),
-                    Vehiculo = table.Column<string>(maxLength: 45, nullable: false),
-                    Marca = table.Column<string>(maxLength: 45, nullable: false),
-                    Linea = table.Column<string>(maxLength: 45, nullable: false),
-                    Modelo = table.Column<int>(nullable: false),
-                    NumSerie = table.Column<string>(maxLength: 45, nullable: false),
-                    NumMotor = table.Column<string>(maxLength: 45, nullable: false),
-                    Nss = table.Column<string>(maxLength: 45, nullable: false),
-                    InicioSeguro = table.Column<DateTime>(type: "datetime", nullable: false),
-                    FinSeguro = table.Column<DateTime>(type: "datetime", nullable: false),
-                    StatusId = table.Column<int>(nullable: false),
-                    ChoferId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Unidad", x => x.UnidadId);
-                    table.ForeignKey(
-                        name: "Fk_Unidad_Chofer",
-                        column: x => x.ChoferId,
-                        principalTable: "Chofer",
-                        principalColumn: "ChoferId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Unidad_Status",
-                        column: x => x.StatusId,
-                        principalTable: "Status",
-                        principalColumn: "StatusId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ChoferUnidad",
                 columns: table => new
                 {
@@ -287,6 +261,27 @@ namespace sistema_taxis.Migrations
                         column: x => x.UnidadId,
                         principalTable: "Unidad",
                         principalColumn: "UnidadId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pago",
+                columns: table => new
+                {
+                    PagoId = table.Column<Guid>(nullable: false),
+                    Cantidad = table.Column<decimal>(type: "money", nullable: false),
+                    FechaPago = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Usuario = table.Column<string>(nullable: true),
+                    ChoferId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pago", x => x.PagoId);
+                    table.ForeignKey(
+                        name: "FK_Pago_Chofer",
+                        column: x => x.ChoferId,
+                        principalTable: "Chofer",
+                        principalColumn: "ChoferId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -347,11 +342,6 @@ namespace sistema_taxis.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Pago_ChoferId",
                 table: "Pago",
-                column: "ChoferId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Unidad_ChoferId",
-                table: "Unidad",
                 column: "ChoferId");
 
             migrationBuilder.CreateIndex(

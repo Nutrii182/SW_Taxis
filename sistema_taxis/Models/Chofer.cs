@@ -10,7 +10,6 @@ namespace sistema_taxis.Models
         {
             UnidadLink = new HashSet<ChoferUnidad>();
             PagoList = new HashSet<Pago>();
-            //UnidadList = new HashSet<Unidad>();
         }
 
         public Guid ChoferId { get; set; }
@@ -22,6 +21,9 @@ namespace sistema_taxis.Models
         public byte[] Licencia { get; set; }
         public long? Telefono { get; set; }
         public long? Celular { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
+        public Decimal Deuda { get; set; }
         public int StatusId { get; set; }
         [NotMapped]
         public List<Guid> ListUnidad { get; set; }
@@ -30,6 +32,5 @@ namespace sistema_taxis.Models
         public virtual TipoSangre TipoSangre { get; set; }
         public virtual ICollection<ChoferUnidad> UnidadLink { get; set; }
         public virtual ICollection<Pago> PagoList { get; set; }
-        //public virtual ICollection<Unidad> UnidadList { get; set; }
     }
 }

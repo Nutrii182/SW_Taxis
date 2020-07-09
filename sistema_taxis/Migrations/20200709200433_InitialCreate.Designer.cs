@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sistema_taxis.Models;
 
 namespace sistema_taxis.Migrations
 {
     [DbContext(typeof(SistemaTaxisContext))]
-    partial class SistemaTaxisContextModelSnapshot : ModelSnapshot
+    [Migration("20200709200433_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,9 +162,6 @@ namespace sistema_taxis.Migrations
 
                     b.Property<byte[]>("Curp")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<decimal>("Deuda")
-                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("Direccion")
                         .IsRequired()

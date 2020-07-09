@@ -15,6 +15,7 @@ namespace sistema_taxis.Models
         public byte[] Licencia { get; set; }
         public long? Telefono { get; set; }
         public long? Celular { get; set; }
+        public Decimal Deuda { get; set; }
         public ICollection<UnidadDto> Unidades { get; set; }
         public TipoSangreDto TipoSangre { get; set; }
         public StatusDto Status { get; set; }
