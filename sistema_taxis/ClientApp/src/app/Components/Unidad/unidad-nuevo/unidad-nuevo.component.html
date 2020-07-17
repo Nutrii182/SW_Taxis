@@ -1,3 +1,69 @@
 <app-nav-menu></app-nav-menu>
-<p>unidad-nuevo works!</p>
-<app-footer></app-footer>
+
+<div class="container">
+
+    <div class="card">
+      <div class="card-body">
+        <h1> Nueva unidad </h1>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <form class="validate-form" id="formRegistro" #fregistro="ngForm">
+              <input class="form-control" type="text" placeholder="Vehículo" />
+              <input class="form-control" type="text" placeholder="Marca" />
+              <input class="form-control" type="text" placeholder="Línea" />
+
+              <input class="form-control" type="number" placeholder="Modelo" />
+              <input class="form-control" type="text" placeholder="Número de serie" />
+              <input class="form-control" type="text" placeholder="Número de motor" />
+              <input class="form-control" type="text" placeholder="NSS" />
+
+              <input class="form-control" type="date" placeholder="Inicio de seguro" />
+              <input class="form-control" type="date" placeholder="Fin de seguro" />
+              <input class="form-control" type="text" placeholder="Estatus" />
+
+              <div>
+                <button type="submit" class="btn btn-success form-control">Aceptar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <img id="imgTaxis" class="img-responsive img-fluid" src="./assets/img/nuevo-taxi.jpg" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <app-footer></app-footer>
+
+
+  <!--
+
+    NumUnidad: string;
+    Vehiculo: string;
+    Marca: string;
+    Linea: string;
+    Modelo: number;
+    NumSerie: string;
+    NumMotor: string;
+    Nss: string;
+    InicioSeguro: Date;
+    FinSeguro: Date;
+    Status: string;
+
+  }
+
+  -->

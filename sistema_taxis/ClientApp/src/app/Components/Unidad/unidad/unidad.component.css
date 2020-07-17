@@ -3,3 +3,8 @@
   margin-left: 10px;
   margin-bottom: 10px;
 }
+
+.card {
+  margin: 1%;
+  box-shadow: 1px 2px 2px 1px rgba(128, 128, 128, 9);
+}

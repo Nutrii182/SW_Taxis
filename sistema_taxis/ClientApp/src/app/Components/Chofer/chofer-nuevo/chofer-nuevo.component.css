@@ -1,0 +1,16 @@
+
+.card {
+  margin: 1%;
+  box-shadow: 1px 2px 2px 1px rgba(128, 128, 128, 9);
+}
+
+
+div input, button {
+    margin: 1%;
+}
+
+h1 {
+    text-align:center;
+}
+
+

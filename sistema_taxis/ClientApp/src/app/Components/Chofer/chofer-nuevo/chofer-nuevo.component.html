@@ -1,3 +1,46 @@
 <app-nav-menu></app-nav-menu>
-<p>chofer-nuevo works!</p>
+
+<div class="container">
+
+  <div class="card">
+    <div class="card-body">
+      <h1> Nuevo chofer </h1>
+    </div>
+  </div>
+
+
+  <div class="row">
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <form class="validate-form" id="formRegistro" #fregistro="ngForm">
+            <input class="form-control" type="text" placeholder="Nombre completo" />
+            <input class="form-control" type="text" placeholder="Dirección" />
+            <input class="form-control" type="text" placeholder="Tipo de sangre" />
+            <input class="form-control" type="file" />
+            <input class="form-control" type="file" />
+            <input class="form-control" type="file" />
+            <input class="form-control" type="number" placeholder="Tel." />
+            <input class="form-control" type="number" placeholder="Cel." />
+            <div>
+              <button type="submit" class="btn btn-success form-control">Aceptar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <img id="imgTaxis" class="img-responsive img-fluid" src="./assets/img/nuevo-chofer.jpg" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
 <app-footer></app-footer>

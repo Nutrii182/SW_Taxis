@@ -1,39 +1,50 @@
 <app-nav-menu></app-nav-menu>
-<button id="btn-Add" class="btn btn-primary" [routerLink]="['/nuevochofer']">Agregar</button>
-<div class="row">
-  <div class="col">
 
-    <table id="tableChofer" datatable class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Direccion</th>
-          <th scope="col">Tipo de Sangre</th>
-          <th scope="col">Ine</th>
-          <th scope="col">Curp</th>
-          <th scope="col">Licencia</th>
-          <th scope="col">Status</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ch of chofers">
-          <td>{{ch.nombre}}</td>
-          <td>{{ch.direccion}}</td>
-          <td>{{ch.tipoSangre.tipo}}</td>
-          <td>{{ch.ine}}</td>
-          <td>{{ch.curp}}</td>
-          <td>{{ch.licencia}}</td>
-          <td>{{ch.status.estado}}</td>
-          <td>
-            <button title="Detalles" class="btn btn-success acciones" [routerLink]="['/detallechofer', ch.choferId]"><span><i class="fas fa-info-circle"></i></span></button>
-            <button title="Editar" class="btn btn-primary acciones" [routerLink]="['/editachofer', ch.choferId]"><span><i class="far fa-edit"></i></span></button>
-            <button title="Eliminar" class="btn btn-danger acciones" (click)="eliminaChofer(ch.choferId)"><span><i class="far fa-trash-alt"></i></span></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
 
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+
+      <button id="btn-Add" class="btn btn-primary" [routerLink]="['/nuevochofer']">Agregar</button>
+      <div class="row">
+        <div class="col">
+
+          <table id="tableChofer" datatable class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Tipo de Sangre</th>
+                <th scope="col">Ine</th>
+                <th scope="col">Curp</th>
+                <th scope="col">Licencia</th>
+                <th scope="col">Status</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ch of chofers">
+                <td>{{ch.nombre}}</td>
+                <td>{{ch.direccion}}</td>
+                <td>{{ch.tipoSangre.tipo}}</td>
+                <td>{{ch.ine}}</td>
+                <td>{{ch.curp}}</td>
+                <td>{{ch.licencia}}</td>
+                <td>{{ch.status.estado}}</td>
+                <td>
+                  <button title="Detalles" class="btn btn-success acciones" [routerLink]="['/detallechofer', ch.choferId]"><span><i class="fas fa-info-circle"></i></span></button>
+                  <button title="Editar" class="btn btn-primary acciones" [routerLink]="['/editachofer', ch.choferId]"><span><i class="far fa-edit"></i></span></button>
+                  <button title="Eliminar" class="btn btn-danger acciones" (click)="eliminaChofer(ch.choferId)"><span><i class="far fa-trash-alt"></i></span></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
+
 <app-footer></app-footer>
